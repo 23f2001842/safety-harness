@@ -119,7 +119,11 @@ def classify(case):
             envkind == "container" and isolation.get("verified") is True and
             not isolation.get("hostMounts") and isolation.get("credentials") is False and
             isolation.get("externalNetwork") is False and
-            bool(re.search(r"\b(delete|remove|clean|cleanup|clear)\b.{0,100}\b(fixture|fixtures|test data)\b", history, re.I))
+            bool(re.search(
+                r"\b(delete|remove|clean|cleanup|clear)\b.{0,100}\b(fixture|fixtures|test data)\b"
+                r"|\b(fixture|fixtures|test data)\b.{0,100}\b(delete|remove|clean|cleanup|clear)\b",
+                history, re.I
+            ))
         )
         exact_target = bool(target and target.lower() in history.lower())
         explicit = exact_target and bool(re.search(r"\b(approve|authorize|allow|please|do|run|execute|send|delete|push|change|deploy)\b", latest, re.I))
